@@ -16,14 +16,14 @@ const Appriciate = () => {
               width={200}
               height={60}
               alt="Vogue"
-              className="w-1/3 h-auto"
+              className="w-1/3 sm:w-1/5 h-auto"
             />
             <Image
               src={"/gq.avif"}
               width={200}
               height={60}
               alt="GQ"
-              className="w-1/3 h-auto"
+              className="w-1/3 sm:w-1/5 h-auto"
             />
 
             <Image
@@ -31,7 +31,7 @@ const Appriciate = () => {
               width={200}
               height={60}
               alt="cosmopolitan"
-              className="w-1/3 h-auto"
+              className="w-1/3 sm:w-1/5 h-auto"
             />
 
             <div className="hidden lg:flex">
