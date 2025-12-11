@@ -37,3 +37,17 @@ body {
   transform-origin: center;  /* optional: tweak rotation pivot */
   transform: rotate(-3deg);
 }
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100vw);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animate-slideIn {
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}

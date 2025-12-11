@@ -1,11 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { motion } from "framer-motion";
+import gsap from "gsap";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (menuOpen && modalRef.current) {
+      gsap.fromTo(
+        modalRef.current,
+        { x: "-100vw", opacity: 1 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
+      );
+    }
+  }, [menuOpen]);
 
   return (
     <div className="bg-white text-black flex w-full justify-between items-center px-4 py-6 md:px-12 md:py-6">
@@ -15,7 +28,17 @@ const Navbar = () => {
           <GiHamburgerMenu size={28} />
         </button>
         {menuOpen && (
-          <div className="absolute top-16 left-2 bg-white shadow-lg rounded z-50 p-4 min-w-[180px]">
+          <motion.div
+            ref={modalRef}
+            initial={{ x: "-100vw", opacity: 1 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "-100vw", opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="fixed top-0 left-0 w-screen h-screen bg-white shadow-lg z-50 min-w-[180px] flex flex-col"
+          >
+            <div className="bg-[#1f1f1f] flex w-full justify-center items-center text-[#eceb0b] py-2 text-sm">
+              🎉Apply FLAT400 at checkout to get 400 off🎉
+            </div>
             <div className="flex justify-end">
               <button
                 onClick={() => setMenuOpen(false)}
@@ -30,15 +53,13 @@ const Navbar = () => {
               <li>The Vault</li>
               <li>About Us</li>
             </ul>
-          </div>
+          </motion.div>
         )}
       </div>
       {/* Logo center on mobile, left on desktop */}
       <div className="flex-1 flex justify-center md:justify-start">
         <div className="font-bold text-4xl">COMET</div>
       </div>
-      {/* Profile and cart icons right on mobile, right on desktop */}
-
       {/* Desktop menu */}
       <div className="hidden md:flex px-12">
         <ul className="flex justify-between items-center font-bold">
@@ -48,6 +69,7 @@ const Navbar = () => {
           <li className="inline px-8">About Us</li>
         </ul>
       </div>
+      {/* Profile and cart icons right on mobile, right on desktop */}
       <div className="flex items-center gap-6">
         <FaUserCircle size={28} />
         <div className="relative ml-4">
