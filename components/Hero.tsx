@@ -29,7 +29,7 @@ const Hero = () => {
           <h2 className="text-lg md:text-4xl mb-4">
             Perfectly balanced as always
           </h2>
-          <h1 className="text-2xl md:text-5xl font-extrabold mb-8 tracking-wide">
+          <h1 className="text-2xl md:text-5xl font-extrabold mb-8 tracking-wide font-condensed">
             X LOWS CORTADO
           </h1>
           <div className="flex gap-8 justify-center">

@@ -23,10 +23,10 @@ const VideoBg = () => {
       />
 
       {/* Overlay Text + Buttons */}
-      <div className="absolute top-0 left-0 w-full h-1/4 flex items-center justify-center pt-12 sm:pt-0">
+      <div className="absolute top-10 left-0 w-full h-1/4 flex items-center justify-center pt-12 sm:pt-0">
         <div className="ml-4 text-white space-y-6 max-w-full md:max-w-[50%] select-none pointer-events-none">
           <h2 className="text-lg sm:text-3xl text-center">Good Shoes</h2>
-          <h1 className="text-2xl sm:text-5xl font-extrabold tracking-wide text-center md:text-left">
+          <h1 className="text-2xl sm:text-5xl font-extrabold tracking-wide text-center md:text-left font-condensed">
             TAKE YOU PLACES
           </h1>
 

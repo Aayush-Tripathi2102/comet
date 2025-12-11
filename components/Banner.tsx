@@ -3,7 +3,7 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <div className="w-full relative text-2xl font-bold bg-[#ECEB0B] text-[#1F1F1F] uppercase  py-12 border-b-2 border-black">
+    <div className="w-full relative text-5xl font-condensed font-bold bg-[#ECEB0B] text-[#1F1F1F] uppercase  py-12 border-b-2 border-black">
       <div className="flex gap-8  items-center pb-8">
         <Image
           src="/cross.webp"

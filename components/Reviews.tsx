@@ -23,7 +23,7 @@ const Reviews = () => {
         cellWidth2={50}
       >
         <div className="px-10 pb-20 lg:pb-10">
-          <h1 className="pt-10 pb-8 text-3xl font-extrabold">
+          <h1 className="pt-10 pb-8 text-3xl font-extrabold font-condensed">
             WHAT{`'`}RE THEY SAYING?
           </h1>
           <div className="relative w-full">
@@ -62,7 +62,7 @@ const Reviews = () => {
                         <IoStar key={i} size={18} className="text-black" />
                       ))}
                     </div>
-                    <p className="text-base md:text-2xl text-gray-800 leading-relaxed mb-4 px-2 font-extrabold">
+                    <p className="text-base md:text-2xl font-condensed text-gray-800 leading-relaxed mb-4 px-2 font-extrabold">
                       "{review.title}"
                     </p>
                     <span className="text-xs md:text-base tracking-wide">

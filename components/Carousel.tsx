@@ -58,7 +58,9 @@ export default function ShoeCarousel() {
 
             <div className="px-4 py-3 w-full flex justify-between items-center">
               <div>
-                <h3 className="mt-3 font-medium text-black">{shoe.name}</h3>
+                <h3 className="mt-3 font-medium text-black uppercase">
+                  {shoe.name}
+                </h3>
                 <p className="text-sm text-gray-500">{shoe.type}</p>
               </div>
               <p className="text-black">₹ {shoe.price}</p>

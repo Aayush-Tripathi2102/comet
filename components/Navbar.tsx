@@ -5,6 +5,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import Image from "next/image";
@@ -14,6 +15,8 @@ const Navbar = () => {
   const [selected, setSelected] = useState<"men" | "women" | "about" | null>(
     "men"
   );
+  const [men, setMen] = useState(false);
+  const [women, setWomen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const getColor = (item: string) => {
@@ -147,7 +150,7 @@ const Navbar = () => {
               <ul className="flex gap-8 mt-2 text-lg font-bold uppercase">
                 <li
                   onClick={() => setSelected("men")}
-                  className={`cursor-pointer ${
+                  className={` ${
                     selected === "men" ? getColor("men") : "text-black"
                   }`}
                 >
@@ -156,7 +159,7 @@ const Navbar = () => {
 
                 <li
                   onClick={() => setSelected("women")}
-                  className={`cursor-pointer ${
+                  className={` ${
                     selected === "women" ? getColor("women") : "text-black"
                   }`}
                 >
@@ -165,7 +168,7 @@ const Navbar = () => {
 
                 <li
                   onClick={() => setSelected("about")}
-                  className={`cursor-pointer ${
+                  className={` ${
                     selected === "about" ? getColor("about") : "text-black"
                   }`}
                 >
@@ -202,10 +205,56 @@ const Navbar = () => {
       {/* Desktop menu */}
       <div className="hidden md:flex px-12">
         <ul className="flex justify-between items-center font-bold">
-          <li className="inline px-8">Men</li>
-          <li className="inline px-8">Women</li>
-          <li className="inline px-8">The Vault</li>
-          <li className="inline px-8">About Us</li>
+          <li className="inline px-8">
+            <button
+              className="cursor-pointer"
+              onClick={() => {
+                setMen(!men);
+                setWomen(false);
+              }}
+            >
+              <div className="flex justify-center items-center gap-2">
+                <span>Men</span>
+                <span>{men ? <FiChevronUp /> : <FiChevronDown />}</span>
+              </div>
+              <div
+                className={`h-1 ${
+                  men ? "bg-[#ECEB0B]" : "bg-transparent"
+                } w-5/8 mt-1`}
+              />
+            </button>
+          </li>
+          <li className="inline px-8">
+            <button
+              className="cursor-pointer"
+              onClick={() => {
+                setWomen(!women);
+                setMen(false);
+              }}
+            >
+              <div className="flex justify-center items-center gap-2">
+                <span>Women</span>
+                <span>{women ? <FiChevronUp /> : <FiChevronDown />}</span>
+              </div>
+              <div
+                className={`h-1 ${
+                  women ? "bg-[#ECEB0B]" : "bg-transparent"
+                } w-3/4 mt-1`}
+              />
+            </button>
+          </li>
+          <li className="inline px-8">
+            <button className="cursor-pointer" onClick={() => {}}>
+              The Vault
+              <div className="h-1 w-full mt-1" />
+            </button>
+          </li>
+          <li className="inline px-8">
+            <button className="cursor-pointer" onClick={() => {}}>
+              About Us
+              <div className="h-1 w-full mt-1" />
+            </button>
+          </li>
         </ul>
       </div>
       {/* Profile and cart icons right on mobile, right on desktop */}
@@ -218,6 +267,74 @@ const Navbar = () => {
           </span>
         </div>
       </div>
+      {men && (
+        <div className="absolute top-30 left-0 w-full bg-white shadow-lg z-40 px-12 py-6 ">
+          <div className="w-full flex justify-center items-start">
+            <div className="w-6/8 flex items-center gap-4 justify-center border-r border-r-black">
+              <div className="w-1/3 m-2">
+                <Image src="/x.webp" width={700} height={600} alt="men" />
+              </div>
+              <div className="w-1/3  m-2">
+                <Image src="/y.webp" width={700} height={600} alt="men" />
+              </div>
+              <div className="w-1/3 m-2 mr-4 flex flex-col gap-2">
+                <div className=" m-2">
+                  <Image src="/p.webp" width={280} height={290} alt="men" />
+                </div>
+                <div className="m-2">
+                  <Image src="/q.webp" width={280} height={290} alt="men" />
+                </div>
+              </div>
+            </div>
+            <div className="w-2/8 flex items-start">
+              <ul className="flex flex-col gap-2 font-semibold mt-8 ml-8">
+                <li className="text-lg hover:text-[#ECEB0B]">New in</li>
+                <li className="text-lg hover:text-[#ECEB0B]">Gifting Guide</li>
+                <li className="text-lg hover:text-[#ECEB0B]">
+                  We Made Too Much
+                </li>
+                <li className="text-lg hover:text-[#ECEB0B]">Member's CLub</li>
+                <li className="text-lg hover:text-[#ECEB0B]">Accessories</li>
+                <li className="text-lg hover:text-[#ECEB0B]">The Garage</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+      {women && (
+        <div className="absolute top-30 left-0 w-full bg-white shadow-lg z-40 px-12 py-6 ">
+          <div className="w-full flex justify-center items-start">
+            <div className="w-6/8 flex items-center gap-4 justify-center border-r border-r-black">
+              <div className="w-1/3 m-2">
+                <Image src="/a.webp" width={700} height={600} alt="men" />
+              </div>
+              <div className="w-1/3  m-2">
+                <Image src="/b.webp" width={700} height={600} alt="men" />
+              </div>
+              <div className="w-1/3 m-2 mr-4 flex flex-col gap-2">
+                <div className=" m-2">
+                  <Image src="/c.webp" width={280} height={290} alt="men" />
+                </div>
+                <div className="m-2">
+                  <Image src="/d.webp" width={280} height={290} alt="men" />
+                </div>
+              </div>
+            </div>
+            <div className="w-2/8 flex items-start">
+              <ul className="flex flex-col gap-2 font-semibold mt-8 ml-8">
+                <li className="text-lg hover:text-[#ECEB0B]">New in</li>
+                <li className="text-lg hover:text-[#ECEB0B]">Gifting Guide</li>
+                <li className="text-lg hover:text-[#ECEB0B]">
+                  We Made Too Much
+                </li>
+                <li className="text-lg hover:text-[#ECEB0B]">Member's CLub</li>
+                <li className="text-lg hover:text-[#ECEB0B]">Accessories</li>
+                <li className="text-lg hover:text-[#ECEB0B]">The Garage</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

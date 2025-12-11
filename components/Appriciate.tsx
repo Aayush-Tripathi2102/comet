@@ -4,7 +4,7 @@ import React from "react";
 const Appriciate = () => {
   return (
     <div className="mb-20">
-      <h1 className="text-2xl md:text-4xl font-bold text-center my-10">
+      <h1 className="text-2xl md:text-4xl font-bold text-center my-10 font-condensed">
         AS APPRECIATED ON
       </h1>
       <div className="flex w-full justify-center items-center py-10 bg-[#f5f5f5]">
