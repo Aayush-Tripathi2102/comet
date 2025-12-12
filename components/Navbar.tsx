@@ -2,21 +2,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
+import { MdCardGiftcard } from "react-icons/md";
+import { FaRegSquare, FaRegCheckSquare } from "react-icons/fa";
 import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import Image from "next/image";
+import { cart } from "@/lib/constants";
 
 const Navbar = () => {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [selected, setSelected] = useState<"men" | "women" | "about" | null>(
     "men"
   );
   const [men, setMen] = useState(false);
   const [women, setWomen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState(cart);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const getColor = (item: string) => {
@@ -108,7 +116,7 @@ const Navbar = () => {
   }, [menuOpen]);
 
   return (
-    <div className="bg-white text-black flex w-full justify-between items-center px-4 py-6 md:px-12 md:py-6">
+    <div className="bg-white text-black flex w-full justify-between items-center px-4 py-6 md:px-12 md:py-6 border-b border-gray-500">
       {/* Hamburger and menu for mobile */}
       <div className="flex items-center md:hidden">
         <button onClick={() => setMenuOpen(!menuOpen)} className="mr-4">
@@ -260,18 +268,28 @@ const Navbar = () => {
       {/* Profile and cart icons right on mobile, right on desktop */}
       <div className="flex items-center gap-6">
         <FaUserCircle size={28} />
-        <div className="relative ml-4">
+        <button
+          onClick={() => {
+            setCartOpen(!cartOpen);
+          }}
+          className="relative ml-4 cursor-pointer"
+        >
           <FiShoppingCart size={28} />
           <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
             3
           </span>
-        </div>
+        </button>
       </div>
       {men && (
         <div className="absolute top-30 left-0 w-full bg-white shadow-lg z-40 px-12 py-6 ">
           <div className="w-full flex justify-center items-start">
             <div className="w-6/8 flex items-center gap-4 justify-center border-r border-r-black">
-              <div className="w-1/3 m-2">
+              <div
+                className="w-1/3 m-2"
+                onClick={() => {
+                  router.push("/collection");
+                }}
+              >
                 <Image src="/x.webp" width={700} height={600} alt="men" />
               </div>
               <div className="w-1/3  m-2">
@@ -331,6 +349,116 @@ const Navbar = () => {
                 <li className="text-lg hover:text-[#ECEB0B]">Accessories</li>
                 <li className="text-lg hover:text-[#ECEB0B]">The Garage</li>
               </ul>
+            </div>
+          </div>
+        </div>
+      )}
+      {cartOpen && (
+        <div className="fixed top-0 right-0 w-screen  bg-white shadow-2xl z-50">
+          <div
+            className="fixed top-0 left-0 w-2/3 h-screen  bg-black/50 z-50"
+            onClick={() => setCartOpen(false)}
+          />
+          <div className="fixed top-0 right-0 w-1/3 bg-white z-60 h-screen">
+            <div className="flex justify-between item-center py-4 px-6 ">
+              <h2 className="text-xl font-semibold">CART</h2>
+              <button onClick={() => setCartOpen(false)} className="mb-4">
+                <FiX size={24} />
+              </button>
+            </div>
+            <div className="flex flex-col gap-4 py-4 px-6 overflow-y-auto h-[calc(100vh-300px)] scrollbar-hide">
+              {cartItems.map((item, index) => (
+                <div
+                  key={item.name}
+                  className="flex items-start justify-between h-full "
+                >
+                  <div className="flex items-start gap-2 ">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={100}
+                      height={100}
+                    />
+                    <div className="h-full ">
+                      <div className="mb-12">
+                        <h3 className=" font-semibold mb-2 cursor-pointer hover:underline">
+                          {item.name}
+                        </h3>
+                        <div className="flex justify-cener items-center gap-4">
+                          <p className="uppercase text-sm font-semibold">
+                            SIZE:
+                          </p>
+                          <p className="text-sm">{item.size}</p>
+                        </div>
+                      </div>
+                      <div
+                        className="flex items-center gap-3 cursor-pointer select-none text-gray-800"
+                        onClick={() => {
+                          const updated = [...cartItems];
+                          updated[index].giftWrap = !updated[index].giftWrap;
+                          setCartItems(updated);
+                        }}
+                      >
+                        {item.giftWrap ? (
+                          <FaRegCheckSquare className="text-xl" />
+                        ) : (
+                          <FaRegSquare className="text-xl" />
+                        )}
+
+                        <MdCardGiftcard className="text-xl" />
+
+                        <p className="text-sm italic">Add free GIFT WRAP</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="h-35 flex flex-col  justify-between">
+                    <p className="text-sm font-medium">
+                      ₹{item.price.toLocaleString("en-IN")}
+                    </p>
+                    <div className="border border-gray-400 flex gap-2 items-center justify-center">
+                      <FiChevronDown
+                        className="cursor-pointer"
+                        onClick={() => {
+                          const updated = [...cartItems];
+                          if (updated[index].quantity > 1) {
+                            updated[index].quantity -= 1;
+                            setCartItems(updated);
+                          } else {
+                            updated.splice(index, 1);
+                            setCartItems(updated);
+                          }
+                        }}
+                      />
+                      <span>{item.quantity}</span>
+                      <FiChevronUp
+                        className="cursor-pointer"
+                        onClick={() => {
+                          const updated = [...cartItems];
+                          updated[index].quantity += 1;
+                          setCartItems(updated);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="h-40" />
+            </div>
+            <div className="border-t border-gray-500 pt-12 fixed bottom-0 right-0 w-1/3 bg-white">
+              <div className="flex items-center gap-4 text-gray-700 text-sm px-8">
+                <p>Free 7 day Returns & Exchanges</p>.<p>Free Shipping</p>
+              </div>
+              <div className="flex justify-between font-bold w-full items-center gap-4 text-black text-xl uppercase px-10 py-12">
+                <p>Total:</p>
+                <p>
+                  {`₹${cartItems
+                    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+                    .toLocaleString("en-IN")}`}
+                </p>
+              </div>
+              <button className="py-4 w-full bg-[#ECEB0B] text-3xl font-bold uppercase cursor-pointer">
+                Checkout
+              </button>
             </div>
           </div>
         </div>

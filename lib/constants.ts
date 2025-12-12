@@ -16,6 +16,15 @@ export interface CustomerReview {
   image: string;
 }
 
+export interface cartItem {
+  name: string;
+  price: number;
+  size: number;
+  image: string;
+  quantity: number;
+  giftWrap?: boolean;
+}
+
 export const shoes: Shoe[] = [
   {
     name: "X Lows Cortado",
@@ -100,31 +109,63 @@ export const customerReviews: CustomerReview[] = [
   {
     name: "VINEET P",
     title: "COMFORT THAT STANDS OUT",
-    review: "Not gonna lie, these shoes stole the spotlight more than the view. Crazy comfy, easy to style, and they’ve been my go-to ever since I got them.",
+    review:
+      "Not gonna lie, these shoes stole the spotlight more than the view. Crazy comfy, easy to style, and they’ve been my go-to ever since I got them.",
     image: "/customer.webp",
   },
   {
     name: "LEIKA",
     title: "COMET = COMFORT + COMPLIMENTS",
-    review: "Been wearing these non-stop for errands, dates, even grocery runs. Not a single blister, only compliments. My feet are finally happy.",
+    review:
+      "Been wearing these non-stop for errands, dates, even grocery runs. Not a single blister, only compliments. My feet are finally happy.",
     image: "/customer.webp",
   },
   {
     name: "VINEET P",
     title: "COMFORT THAT STANDS OUT",
-    review: "Not gonna lie, these shoes stole the spotlight more than the view. Crazy comfy, easy to style, and they’ve been my go-to ever since I got them.",
+    review:
+      "Not gonna lie, these shoes stole the spotlight more than the view. Crazy comfy, easy to style, and they’ve been my go-to ever since I got them.",
     image: "/customer.webp",
   },
   {
     name: "LEIKA",
     title: "COMET = COMFORT + COMPLIMENTS",
-    review: "Been wearing these non-stop for errands, dates, even grocery runs. Not a single blister, only compliments. My feet are finally happy.",
+    review:
+      "Been wearing these non-stop for errands, dates, even grocery runs. Not a single blister, only compliments. My feet are finally happy.",
     image: "/customer.webp",
   },
   {
     name: "VINEET P",
     title: "COMFORT THAT STANDS OUT",
-    review: "Not gonna lie, these shoes stole the spotlight more than the view. Crazy comfy, easy to style, and they’ve been my go-to ever since I got them.",
+    review:
+      "Not gonna lie, these shoes stole the spotlight more than the view. Crazy comfy, easy to style, and they’ve been my go-to ever since I got them.",
     image: "/customer.webp",
-  }
-]
+  },
+];
+
+export const cart: cartItem[] = [
+  {
+    name: "X LOWS MADAGASCAR",
+    price: 4299,
+    size: 8,
+    image: "/shoe2.webp",
+    quantity: 1,
+    giftWrap: false,
+  },
+  {
+    name: "COMET RUNNER SHADOW",
+    price: 4999,
+    size: 9,
+    image: "/shoe2.webp",
+    quantity: 1,
+    giftWrap: false,
+  },
+  {
+    name: "ASTRA HIGH CLASSIC",
+    price: 3799,
+    size: 7,
+    image: "/shoe2.webp",
+    quantity: 2,
+    giftWrap: false,
+  },
+];
