@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import Image from "next/image";
 import { cart } from "@/lib/constants";
+import Link from "next/link";
 
 const Navbar = () => {
   const router = useRouter();
@@ -41,7 +42,12 @@ const Navbar = () => {
           <div className="mt-4">
             <ul className="flex flex-col gap-4 font-semibold">
               <li className="text-lg uppercase">New in</li>
-              <li className="text-lg uppercase">sneakers</li>
+              <li
+                className="text-lg uppercase"
+                onClick={() => router.push("/collection")}
+              >
+                sneakers
+              </li>
               <li className="text-lg uppercase">gifting guide</li>
               <li className="text-lg uppercase">we made too much</li>
               <li className="text-lg uppercase">accessories</li>
@@ -116,7 +122,7 @@ const Navbar = () => {
   }, [menuOpen]);
 
   return (
-    <div className="bg-white text-black flex w-full justify-between items-center px-4 py-6 md:px-12 md:py-6 border-b border-gray-500">
+    <div className="bg-white text-black flex w-full justify-between items-center px-4 py-6 md:px-12 md:py-6 border-b border-gray-200">
       {/* Hamburger and menu for mobile */}
       <div className="flex items-center md:hidden">
         <button onClick={() => setMenuOpen(!menuOpen)} className="mr-4">
@@ -141,9 +147,14 @@ const Navbar = () => {
               >
                 <AiOutlineClose size={28} />
               </button>
-              <div className="flex-1 flex justify-center md:justify-start">
-                <div className="font-bold text-4xl text-white">COMET</div>
-              </div>
+              <Link
+                className="flex-1 flex justify-center md:justify-start"
+                href={"/"}
+              >
+                <div className="font-bold text-4xl cursor-pointer text-white">
+                  COMET
+                </div>
+              </Link>
               <div className="flex items-center gap-6 text-white">
                 <FaUserCircle size={28} />
                 <div className="relative ml-4">
@@ -208,7 +219,12 @@ const Navbar = () => {
       </div>
       {/* Logo center on mobile, left on desktop */}
       <div className="flex-1 flex justify-center md:justify-start">
-        <div className="font-bold text-4xl">COMET</div>
+        <div
+          className="font-bold text-4xl cursor-pointer"
+          onClick={() => router.push("/")}
+        >
+          COMET
+        </div>
       </div>
       {/* Desktop menu */}
       <div className="hidden md:flex px-12">
@@ -354,45 +370,63 @@ const Navbar = () => {
         </div>
       )}
       {cartOpen && (
-        <div className="fixed top-0 right-0 w-screen  bg-white shadow-2xl z-50">
+        <div className="fixed top-0 right-0 w-screen bg-white shadow-2xl z-50">
           <div
-            className="fixed top-0 left-0 w-2/3 h-screen  bg-black/50 z-50"
+            className="fixed top-0 left-0 w-1/8 md:w-2/3 h-screen bg-black/50 z-50"
             onClick={() => setCartOpen(false)}
           />
-          <div className="fixed top-0 right-0 w-1/3 bg-white z-60 h-screen">
-            <div className="flex justify-between item-center py-4 px-6 ">
-              <h2 className="text-xl font-semibold">CART</h2>
-              <button onClick={() => setCartOpen(false)} className="mb-4">
-                <FiX size={24} />
+
+          <div className="fixed top-0 right-0 w-7/8 md:w-1/3 bg-white z-60 h-screen">
+            {/* HEADER */}
+            <div className="flex justify-between items-center py-4 px-6">
+              <h2 className="font-semibold text-base sm:text-lg md:text-xl">
+                CART
+              </h2>
+              <button onClick={() => setCartOpen(false)}>
+                <FiX size={20} />
               </button>
             </div>
+
+            {/* ITEMS */}
             <div className="flex flex-col gap-4 py-4 px-6 overflow-y-auto h-[calc(100vh-300px)] scrollbar-hide">
               {cartItems.map((item, index) => (
                 <div
                   key={item.name}
-                  className="flex items-start justify-between h-full "
+                  className="flex items-start justify-between"
                 >
-                  <div className="flex items-start gap-2 ">
+                  <div className="flex items-start gap-2">
                     <Image
                       src={item.image}
                       alt={item.name}
                       width={100}
                       height={100}
                     />
-                    <div className="h-full ">
+
+                    <div>
                       <div className="mb-12">
-                        <h3 className=" font-semibold mb-2 cursor-pointer hover:underline">
+                        <h3
+                          className="font-semibold cursor-pointer hover:underline
+                               text-sm sm:text-base md:text-lg"
+                        >
                           {item.name}
                         </h3>
-                        <div className="flex justify-cener items-center gap-4">
-                          <p className="uppercase text-sm font-semibold">
+
+                        <div className="flex items-center gap-2 mt-1">
+                          <p
+                            className="uppercase font-semibold
+                                text-xs sm:text-sm"
+                          >
                             SIZE:
                           </p>
-                          <p className="text-sm">{item.size}</p>
+                          <p className="text-xs sm:text-sm md:text-base">
+                            {item.size}
+                          </p>
                         </div>
                       </div>
+
+                      {/* GIFT WRAP */}
                       <div
-                        className="flex items-center gap-3 cursor-pointer select-none text-gray-800"
+                        className="flex items-center gap-2 cursor-pointer select-none text-gray-800"
                         onClick={() => {
                           const updated = [...cartItems];
                           updated[index].giftWrap = !updated[index].giftWrap;
@@ -400,38 +434,45 @@ const Navbar = () => {
                         }}
                       >
                         {item.giftWrap ? (
-                          <FaRegCheckSquare className="text-xl" />
+                          <FaRegCheckSquare className="text-base sm:text-lg" />
                         ) : (
-                          <FaRegSquare className="text-xl" />
+                          <FaRegSquare className="text-base sm:text-lg" />
                         )}
-
-                        <MdCardGiftcard className="text-xl" />
-
-                        <p className="text-sm italic">Add free GIFT WRAP</p>
+                        <MdCardGiftcard className="text-base sm:text-lg" />
+                        <p className="italic text-xs sm:text-sm">
+                          Add free GIFT WRAP
+                        </p>
                       </div>
                     </div>
                   </div>
-                  <div className="h-35 flex flex-col  justify-between">
-                    <p className="text-sm font-medium">
+
+                  {/* PRICE & QTY */}
+                  <div className="flex flex-col justify-between">
+                    <p
+                      className="font-medium
+                          text-xs sm:text-sm md:text-base"
+                    >
                       ₹{item.price.toLocaleString("en-IN")}
                     </p>
-                    <div className="border border-gray-400 flex gap-2 items-center justify-center">
+
+                    <div className="border border-gray-400 flex gap-2 items-center justify-center px-2 py-1">
                       <FiChevronDown
-                        className="cursor-pointer"
+                        className="cursor-pointer text-sm sm:text-base"
                         onClick={() => {
                           const updated = [...cartItems];
                           if (updated[index].quantity > 1) {
                             updated[index].quantity -= 1;
-                            setCartItems(updated);
                           } else {
                             updated.splice(index, 1);
-                            setCartItems(updated);
                           }
+                          setCartItems(updated);
                         }}
                       />
-                      <span>{item.quantity}</span>
+                      <span className="text-xs sm:text-sm md:text-base">
+                        {item.quantity}
+                      </span>
                       <FiChevronUp
-                        className="cursor-pointer"
+                        className="cursor-pointer text-sm sm:text-base"
                         onClick={() => {
                           const updated = [...cartItems];
                           updated[index].quantity += 1;
@@ -444,19 +485,31 @@ const Navbar = () => {
               ))}
               <div className="h-40" />
             </div>
-            <div className="border-t border-gray-500 pt-12 fixed bottom-0 right-0 w-1/3 bg-white">
-              <div className="flex items-center gap-4 text-gray-700 text-sm px-8">
-                <p>Free 7 day Returns & Exchanges</p>.<p>Free Shipping</p>
+
+            {/* FOOTER */}
+            <div className="border-t border-gray-500 pt-8 fixed bottom-0 right-0 w-7/8 md:w-1/3 bg-white">
+              <div
+                className="flex gap-4 text-gray-700 px-8
+                      text-xs sm:text-sm"
+              >
+                <p>Free 7 day Returns & Exchanges</p>
+                <p>Free Shipping</p>
               </div>
-              <div className="flex justify-between font-bold w-full items-center gap-4 text-black text-xl uppercase px-10 py-12">
-                <p>Total:</p>
-                <p>
-                  {`₹${cartItems
+
+              <div className="flex justify-between font-bold uppercase px-10 py-8">
+                <p className="text-sm sm:text-lg md:text-xl">Total:</p>
+                <p className="text-sm sm:text-lg md:text-xl">
+                  ₹
+                  {cartItems
                     .reduce((acc, item) => acc + item.price * item.quantity, 0)
-                    .toLocaleString("en-IN")}`}
+                    .toLocaleString("en-IN")}
                 </p>
               </div>
-              <button className="py-4 w-full bg-[#ECEB0B] text-3xl font-bold uppercase cursor-pointer">
+
+              <button
+                className="py-4 w-full bg-[#ECEB0B] font-bold uppercase cursor-pointer
+                         text-lg sm:text-xl md:text-2xl"
+              >
                 Checkout
               </button>
             </div>
