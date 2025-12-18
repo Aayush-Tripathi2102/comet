@@ -9,6 +9,7 @@ import Reviews from "@/components/Reviews";
 import Image from "next/image";
 import { shoes } from "@/lib/constants";
 import { FiFilter, FiChevronDown } from "react-icons/fi";
+import Link from "next/link";
 
 const page = () => {
   return (
@@ -48,10 +49,11 @@ const page = () => {
 
         {/* PRODUCT GRID */}
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 border-t border-gray-300">
-          {shoes.map((shoe, idx) => (
-            <div
-              key={idx}
-              className="border-b border-r border-gray-300 p-6 cursor-pointer hover:bg-gray-50"
+          {shoes.map((shoe) => (
+            <Link
+              key={shoe.id}
+              href={`/product/${shoe.id}`}
+              className="border-b border-r border-gray-300 p-6 cursor-pointer hover:bg-gray-50 block"
             >
               {/* TAG BADGES */}
               {shoe.tag ? (
@@ -94,7 +96,7 @@ const page = () => {
                   ₹{shoe.price.toLocaleString("en-IN")}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
