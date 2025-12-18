@@ -28,8 +28,8 @@ export default function ProductPage({
   return (
     <>
       <Navbar />
-      <div className="flex mt-12 gap-4 w-full">
-        <div className="w-6/10 overflow-y-auto h-screen px-4 scrollbar-hide">
+      <div className="md:flex block mt-12 gap-4 w-full">
+        <div className="w-full md:w-6/10 overflow-y-auto h-screen px-4 scrollbar-hide">
           {shoe.images.map((imgSrc, index) => (
             <Image
               key={index}
@@ -41,7 +41,7 @@ export default function ProductPage({
             />
           ))}
         </div>
-        <div className="w-4/10 pr-4">
+        <div className="w-full md:w-4/10 px-4 md:px-0 md:pr-4">
           <div className="flex justify-between items-start pb-4 border-b border-gray-200">
             <div>
               <h1 className="text-lg font-bold uppercase font-condensed mb-2">
