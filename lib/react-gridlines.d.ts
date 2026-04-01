@@ -8,4 +8,5 @@ declare module "react-gridlines" {
     children?: React.ReactNode;
   }
   const GridLines: React.FC<GridLinesProps>;
-  export default GridLines;}
+  export default GridLines;
+}
